@@ -1,6 +1,6 @@
 
 # Create your views here.
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, redirect
 from .models import Employee, Role, Department
 from datetime import datetime
 from django.db.models import Q
@@ -31,7 +31,7 @@ def add_emp(request):
         role = int(request.POST['role'])
         new_emp = Employee(first_name= first_name, last_name=last_name, salary=salary, bonus=bonus, phone=phone, dept_id = dept, role_id = role, hire_date = datetime.now())
         new_emp.save()
-        return HttpResponse('Employee added Successfully')
+        return redirect('all_emp')
     elif request.method=='GET':
         return render(request, 'add_emp.html')
     else:
@@ -75,3 +75,6 @@ def filter_emp(request):
         return render(request, 'filter_emp.html')
     else:
         return HttpResponse('An Exception Occurred')
+
+
+
